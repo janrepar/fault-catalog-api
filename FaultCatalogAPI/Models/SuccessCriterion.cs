@@ -8,7 +8,7 @@
         public string URL { get; set; }
         public string Level { get; set; }
 
-        // Basic many to many- (relationship is mapped by convention in Entity Framework)
+        // Basic many to many (relationship is mapped by convention in Entity Framework)
         public List<Fault> Faults { get; set; } = new();
     }
 }
