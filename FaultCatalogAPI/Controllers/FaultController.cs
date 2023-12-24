@@ -27,13 +27,13 @@ namespace FaultCatalogAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Fault>> UpdateFault(Fault fault)
+        public async Task<ActionResult<List<Fault>>> UpdateFault(Fault fault)
         {
 
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Fault>> DeleteFault(long id)
+        public async Task<ActionResult<List<Fault>>> DeleteFault(long id)
         {
 
         }
