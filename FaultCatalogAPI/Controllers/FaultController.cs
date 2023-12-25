@@ -1,6 +1,7 @@
 ﻿using FaultCatalogAPI.Models;
 using FaultCatalogAPI.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaultCatalogAPI.Controllers
@@ -25,13 +26,20 @@ namespace FaultCatalogAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Fault>> GetFault(long id)
         {
-            return _faultservice.GetFault(id);
+            var fault = _faultservice.GetFault(id);
+            if (fault == null)
+            {
+                return NotFound("Fault not found.");
+            }
+
+            return Ok(fault);
         }
 
         [HttpPost]
         public async Task<ActionResult<List<Fault>>> AddFault(Fault fault)
         {
-            // todo
+            var result = _faultservice.AddFault(fault);
+            return Ok(result);
         }
 
         [HttpPut]
