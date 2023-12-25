@@ -1,4 +1,6 @@
 
+using FaultCatalogAPI.Services;
+
 namespace FaultCatalogAPI
 {
     public class Program
@@ -13,6 +15,9 @@ namespace FaultCatalogAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            // Register services.
+            builder.Services.AddScoped<IFaultService, FaultService>();
+            builder.Services.AddScoped<ISuccessCriterionService, SuccessCriterionService>();
 
             var app = builder.Build();
 
