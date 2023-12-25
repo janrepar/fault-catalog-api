@@ -1,7 +1,10 @@
-﻿namespace FaultCatalogAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FaultCatalogAPI.Models
 {
     public class SuccessCriterion
     {
+        [Key] // set string RefId as primary key (ef core doesn't do it automatically, because field is of type string)
         public string RefId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
