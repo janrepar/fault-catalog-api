@@ -1,4 +1,5 @@
 
+using FaultCatalogAPI.Data;
 using FaultCatalogAPI.Services;
 
 namespace FaultCatalogAPI
@@ -18,6 +19,8 @@ namespace FaultCatalogAPI
             // Register services.
             builder.Services.AddScoped<IFaultService, FaultService>();
             builder.Services.AddScoped<ISuccessCriterionService, SuccessCriterionService>();
+            // Register db context.
+            builder.Services.AddDbContext<DataContext>();
 
             var app = builder.Build();
 
