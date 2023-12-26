@@ -1,6 +1,7 @@
 
 using FaultCatalogAPI.Data;
 using FaultCatalogAPI.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaultCatalogAPI
 {
@@ -20,7 +21,8 @@ namespace FaultCatalogAPI
             builder.Services.AddScoped<IFaultService, FaultService>();
             builder.Services.AddScoped<ISuccessCriterionService, SuccessCriterionService>();
             // Register db context.
-            builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 

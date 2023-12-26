@@ -14,10 +14,10 @@ namespace FaultCatalogAPI.Migrations
                 name: "Faults",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,11 +28,11 @@ namespace FaultCatalogAPI.Migrations
                 name: "SuccessCriteria",
                 columns: table => new
                 {
-                    RefId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RefId = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    URL = table.Column<string>(type: "TEXT", nullable: false),
+                    Level = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,8 +43,8 @@ namespace FaultCatalogAPI.Migrations
                 name: "FaultSuccessCriterion",
                 columns: table => new
                 {
-                    FaultsId = table.Column<long>(type: "bigint", nullable: false),
-                    SuccessCriterionsRefId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    FaultsId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SuccessCriterionsRefId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

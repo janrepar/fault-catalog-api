@@ -10,12 +10,6 @@ namespace FaultCatalogAPI.Data
             
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=faultcatalogdb;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
-
         public DbSet<Fault> Faults { get; set; }
 
         public DbSet<SuccessCriterion> SuccessCriteria { get; set; }
