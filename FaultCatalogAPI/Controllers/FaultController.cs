@@ -20,13 +20,13 @@ namespace FaultCatalogAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Fault>>> GetAllFaults()
         {
-            return _faultservice.GetAllFaults();
+            return await _faultservice.GetAllFaults();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Fault>> GetFault(long id)
         {
-            var fault = _faultservice.GetFault(id);
+            var fault = await _faultservice.GetFault(id);
             if (fault == null)
             {
                 return NotFound("Fault not found.");
@@ -38,14 +38,14 @@ namespace FaultCatalogAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Fault>>> AddFault(Fault fault)
         {
-            var result = _faultservice.AddFault(fault);
+            var result = await _faultservice.AddFault(fault);
             return Ok(result);
         }
 
         [HttpPut]
         public async Task<ActionResult<List<Fault>>> UpdateFault(Fault fault)
         {
-            var result = _faultservice.UpdateFault(fault);
+            var result = await _faultservice.UpdateFault(fault);
             if (result == null)
             {
                 return NotFound("Fault not found.");
@@ -57,7 +57,7 @@ namespace FaultCatalogAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Fault>>> DeleteFault(long id)
         {
-            var result = _faultservice.DeleteFault(id);
+            var result = await _faultservice.DeleteFault(id);
             if (result == null)
             {
                 return NotFound("Fault not found.");

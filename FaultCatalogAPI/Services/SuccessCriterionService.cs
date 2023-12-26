@@ -1,5 +1,6 @@
 ﻿using FaultCatalogAPI.Data;
 using FaultCatalogAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaultCatalogAPI.Services
 {
@@ -12,14 +13,21 @@ namespace FaultCatalogAPI.Services
             _context = context;
         }
 
-        public List<SuccessCriterion> GetAllSuccessCriteria()
+        public async Task<List<SuccessCriterion>> GetAllSuccessCriterions()
         {
-            throw new NotImplementedException();
+            var successCriterions = await _context.SuccessCriterions.ToListAsync();
+            return successCriterions;
         }
 
-        public SuccessCriterion GetSuccessCriterion(string id)
+        public async Task<SuccessCriterion?> GetSuccessCriterion(string id)
         {
-            throw new NotImplementedException();
+            var successCriterion = await _context.SuccessCriterions.FindAsync(id);
+            if (successCriterion == null)
+            {
+                return null;
+            }
+
+            return successCriterion;
         }
     }
 }

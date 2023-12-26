@@ -1,6 +1,7 @@
 ﻿
 using FaultCatalogAPI.Data;
 using FaultCatalogAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaultCatalogAPI.Services
 {
@@ -13,29 +14,60 @@ namespace FaultCatalogAPI.Services
             _context = context;
         }
 
-        public List<Fault> AddFault(Fault fault)
+        public async Task<List<Fault>> AddFault(Fault fault)
         {
-            throw new NotImplementedException();
+            _context.Faults.Add(fault);
+            await _context.SaveChangesAsync();
+
+            return await _context.Faults.ToListAsync();
         }
 
-        public List<Fault> DeleteFault(long id)
+        public async Task<List<Fault>?> DeleteFault(long id)
         {
-            throw new NotImplementedException();
+            var fault = await _context.Faults.FindAsync(id);
+            if (fault == null)
+            {
+                return null;
+            }
+
+            _context.Faults.Remove(fault);
+            await _context.SaveChangesAsync();
+
+            return await _context.Faults.ToListAsync();
         }
 
-        public List<Fault> GetAllFaults()
+        public async Task<List<Fault>> GetAllFaults()
         {
-            throw new NotImplementedException();
+            var faults = await _context.Faults.ToListAsync();
+            return faults;
         }
 
-        public Fault GetFault(long id)
+        public async Task<Fault?> GetFault(long id)
         {
-            throw new NotImplementedException();
+            var fault = await _context.Faults.FindAsync(id);
+            if (fault == null)
+            {
+                return null;
+            }
+
+            return fault;
         }
 
-        public List<Fault> UpdateFault(Fault fault)
+        public async Task<List<Fault>?> UpdateFault(Fault fault)
         {
-            throw new NotImplementedException();
+            var faultToUpdate = await _context.Faults.FindAsync(fault.Id);
+            if (faultToUpdate == null)
+            {
+                return null;
+            }
+
+            faultToUpdate.Title = fault.Title;
+            faultToUpdate.Description = fault.Description;
+            faultToUpdate.SuccessCriterions = fault.SuccessCriterions;
+
+            await _context.SaveChangesAsync();
+
+            return await _context.Faults.ToListAsync();
         }
     }
 }

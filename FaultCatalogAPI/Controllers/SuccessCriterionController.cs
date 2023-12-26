@@ -19,13 +19,13 @@ namespace FaultCatalogAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SuccessCriterion>>> GetAllSuccessCriteria()
         {
-            return _successCriterionService.GetAllSuccessCriteria();
+            return await _successCriterionService.GetAllSuccessCriterions();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SuccessCriterion>> GetSuccessCriterion(string id)
         {
-            var successCriterion = _successCriterionService.GetSuccessCriterion(id);
+            var successCriterion = await _successCriterionService.GetSuccessCriterion(id);
             if (successCriterion == null)
             {
                 return NotFound("Success Criterion not found.");

@@ -58,7 +58,7 @@ namespace FaultCatalogAPI.Migrations
 
                     b.HasKey("RefId");
 
-                    b.ToTable("SuccessCriteria");
+                    b.ToTable("SuccessCriterions");
                 });
 
             modelBuilder.Entity("FaultSuccessCriterion", b =>

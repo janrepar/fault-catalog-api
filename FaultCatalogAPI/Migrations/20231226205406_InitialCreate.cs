@@ -25,7 +25,7 @@ namespace FaultCatalogAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SuccessCriteria",
+                name: "SuccessCriterions",
                 columns: table => new
                 {
                     RefId = table.Column<string>(type: "TEXT", nullable: false),
@@ -36,7 +36,7 @@ namespace FaultCatalogAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SuccessCriteria", x => x.RefId);
+                    table.PrimaryKey("PK_SuccessCriterions", x => x.RefId);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,9 +56,9 @@ namespace FaultCatalogAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FaultSuccessCriterion_SuccessCriteria_SuccessCriterionsRefId",
+                        name: "FK_FaultSuccessCriterion_SuccessCriterions_SuccessCriterionsRefId",
                         column: x => x.SuccessCriterionsRefId,
-                        principalTable: "SuccessCriteria",
+                        principalTable: "SuccessCriterions",
                         principalColumn: "RefId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -79,7 +79,7 @@ namespace FaultCatalogAPI.Migrations
                 name: "Faults");
 
             migrationBuilder.DropTable(
-                name: "SuccessCriteria");
+                name: "SuccessCriterions");
         }
     }
 }

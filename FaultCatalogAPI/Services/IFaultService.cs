@@ -4,11 +4,11 @@ namespace FaultCatalogAPI.Services
 {
     public interface IFaultService
     {
-        List<Fault> GetAllFaults();
-        Fault GetFault(long id);
-        List<Fault> AddFault(Fault fault);
-        List<Fault> UpdateFault(Fault fault);
-        List<Fault> DeleteFault(long id);
+        Task<List<Fault>> GetAllFaults();
+        Task<Fault?> GetFault(long id);
+        Task<List<Fault>> AddFault(Fault fault);
+        Task<List<Fault>?> UpdateFault(Fault fault);
+        Task<List<Fault>?> DeleteFault(long id);
     }
 }
  

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaultCatalogAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231226194547_InitialCreate")]
+    [Migration("20231226205406_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace FaultCatalogAPI.Migrations
 
                     b.HasKey("RefId");
 
-                    b.ToTable("SuccessCriteria");
+                    b.ToTable("SuccessCriterions");
                 });
 
             modelBuilder.Entity("FaultSuccessCriterion", b =>
