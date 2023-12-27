@@ -19,7 +19,7 @@ namespace FaultCatalogAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SuccessCriterion>>> GetAllSuccessCriteria()
         {
-            return await _successCriterionService.GetAllSuccessCriterions();
+            return await _successCriterionService.GetAllSuccessCriteria();
         }
 
         [HttpGet("{id}")]

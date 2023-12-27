@@ -12,6 +12,6 @@ namespace FaultCatalogAPI.Data
 
         public DbSet<Fault> Faults { get; set; }
 
-        public DbSet<SuccessCriterion> SuccessCriterions { get; set; }
+        public DbSet<SuccessCriterion> SuccessCriteria { get; set; }
     }
 }

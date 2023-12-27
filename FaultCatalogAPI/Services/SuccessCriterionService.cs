@@ -13,15 +13,15 @@ namespace FaultCatalogAPI.Services
             _context = context;
         }
 
-        public async Task<List<SuccessCriterion>> GetAllSuccessCriterions()
+        public async Task<List<SuccessCriterion>> GetAllSuccessCriteria()
         {
-            var successCriterions = await _context.SuccessCriterions.ToListAsync();
-            return successCriterions;
+            var successCriteria = await _context.SuccessCriteria.ToListAsync();
+            return successCriteria;
         }
 
         public async Task<SuccessCriterion?> GetSuccessCriterion(string id)
         {
-            var successCriterion = await _context.SuccessCriterions.FindAsync(id);
+            var successCriterion = await _context.SuccessCriteria.FindAsync(id);
             if (successCriterion == null)
             {
                 return null;
