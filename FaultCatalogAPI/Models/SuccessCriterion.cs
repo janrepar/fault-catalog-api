@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using JsonIgnoreAttribute = System.Text.Json.Serialization.JsonIgnoreAttribute;
 
 namespace FaultCatalogAPI.Models
 {
@@ -18,7 +18,9 @@ namespace FaultCatalogAPI.Models
         public string? Level { get; set; }
 
         // Basic many to many (relationship is mapped by convention in Entity Framework)
-        [System.Text.Json.Serialization.JsonIgnore]
+        [JsonIgnore]
         public List<Fault> Faults { get; set; } = new();
+        // Navigations to join entity
+        public List<FaultSuccessCriterion> FaultSuccessCriteria { get; set; } = new();
     }
 }

@@ -9,6 +9,9 @@ namespace FaultCatalogAPI.Models
         public string? Description { get; set; }
 
         // Basic many to many (relationship is mapped by convention in Entity Framework)
+        [JsonIgnore]
         public List<SuccessCriterion> SuccessCriteria { get; set; } = new();
+        // Navigations to join entity
+        public List<FaultSuccessCriterion> FaultSuccessCriteria { get; set; } = new();
     }
 }
