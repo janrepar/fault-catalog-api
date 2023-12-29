@@ -1,4 +1,5 @@
-﻿namespace FaultCatalogAPI.Models
+﻿
+namespace FaultCatalogAPI.Models
 {
     public class FaultSuccessCriterion
     {

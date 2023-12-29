@@ -14,14 +14,6 @@ namespace FaultCatalogAPI.Services
             _context = context;
         }
 
-        public async Task<List<Fault>> AddFault(Fault fault)
-        {
-            _context.Faults.Add(fault);
-            await _context.SaveChangesAsync();
-
-            return await _context.Faults.ToListAsync();
-        }
-
         public async Task<List<Fault>?> DeleteFault(long id)
         {
             var fault = await _context.Faults.FindAsync(id);
@@ -63,7 +55,7 @@ namespace FaultCatalogAPI.Services
 
             faultToUpdate.Title = fault.Title;
             faultToUpdate.Description = fault.Description;
-            faultToUpdate.SuccessCriteria = fault.SuccessCriteria;
+            faultToUpdate.SuccessCriterionRefIds = faultToUpdate.SuccessCriterionRefIds;
 
             await _context.SaveChangesAsync();
 

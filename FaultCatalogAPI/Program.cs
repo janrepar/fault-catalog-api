@@ -20,6 +20,7 @@ namespace FaultCatalogAPI
             // Register services.
             builder.Services.AddScoped<IFaultService, FaultService>();
             builder.Services.AddScoped<ISuccessCriterionService, SuccessCriterionService>();
+            builder.Services.AddScoped<IFaultSuccessCriterionService, FaultSuccessCriterionService>();
             // Register db context.
             builder.Services.AddDbContext<DataContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));

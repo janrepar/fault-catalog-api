@@ -16,6 +16,7 @@ namespace FaultCatalogAPI.Controllers
             _context = context;
         }
 
+        // Controller to proccess WCAG Success Criteria from JSON file
         [HttpPost("process-data")]
         public IActionResult ProcessData()
         {

@@ -21,6 +21,7 @@ namespace FaultCatalogAPI.Models
         [JsonIgnore]
         public List<Fault> Faults { get; set; } = new();
         // Navigations to join entity
+        [JsonIgnore]
         public List<FaultSuccessCriterion> FaultSuccessCriteria { get; set; } = new();
     }
 }

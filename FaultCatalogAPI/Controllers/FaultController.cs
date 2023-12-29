@@ -35,13 +35,6 @@ namespace FaultCatalogAPI.Controllers
             return Ok(fault);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<Fault>>> AddFault(Fault fault)
-        {
-            var result = await _faultservice.AddFault(fault);
-            return Ok(result);
-        }
-
         [HttpPut]
         public async Task<ActionResult<List<Fault>>> UpdateFault(Fault fault)
         {
