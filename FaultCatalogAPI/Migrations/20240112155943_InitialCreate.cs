@@ -17,6 +17,7 @@ namespace FaultCatalogAPI.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
+                    ShortDescription = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     SuccessCriterionRefIds = table.Column<string>(type: "TEXT", nullable: false)
                 },

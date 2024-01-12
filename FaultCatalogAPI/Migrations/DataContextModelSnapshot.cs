@@ -26,6 +26,9 @@ namespace FaultCatalogAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SuccessCriterionRefIds")
                         .IsRequired()
                         .HasColumnType("TEXT");

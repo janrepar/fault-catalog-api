@@ -6,6 +6,7 @@ namespace FaultCatalogAPI.Models
     {
         public long Id { get; set; }
         public string? Title { get; set; }
+        public string? ShortDescription { get; set; }
         public string? Description { get; set; }
         public List<string> SuccessCriterionRefIds { get; set; }
 

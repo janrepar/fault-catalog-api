@@ -55,6 +55,7 @@ namespace FaultCatalogAPI.Services
 
             faultToUpdate.Title = fault.Title;
             faultToUpdate.Description = fault.Description;
+            faultToUpdate.ShortDescription = fault.ShortDescription;
             faultToUpdate.SuccessCriterionRefIds = faultToUpdate.SuccessCriterionRefIds;
 
             await _context.SaveChangesAsync();

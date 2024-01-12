@@ -58,6 +58,7 @@ namespace FaultCatalogAPI.Services
             // Updating fault item
             faultToUpdate.Title = faultToUpdate.Title;
             faultToUpdate.Description = faultToUpdate.Description;
+            faultToUpdate.ShortDescription = faultToUpdate.ShortDescription;
 
             var selectedSuccessCriterionRefIds = fault.SuccessCriterionRefIds;
 

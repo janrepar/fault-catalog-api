@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaultCatalogAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231229201125_InitialCreate")]
+    [Migration("20240112155943_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,6 +27,9 @@ namespace FaultCatalogAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SuccessCriterionRefIds")
