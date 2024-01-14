@@ -25,6 +25,17 @@ namespace FaultCatalogAPI
             builder.Services.AddDbContext<DataContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // Add CORS policy
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: "CorsPolicy", builder =>
+                {
+                    builder.WithOrigins("https://localhost:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
