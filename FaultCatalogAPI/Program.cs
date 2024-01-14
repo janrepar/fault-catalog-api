@@ -9,6 +9,8 @@ namespace FaultCatalogAPI
     {
         public static void Main(string[] args)
         {
+            var CorsPolicy = "_CorsPolicy";
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -26,11 +28,11 @@ namespace FaultCatalogAPI
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add CORS policy
-            builder.Services.AddCors(opt =>
+            builder.Services.AddCors(options =>
             {
-                opt.AddPolicy(name: "CorsPolicy", builder =>
+                options.AddPolicy(name: CorsPolicy, policy =>
                 {
-                    builder.WithOrigins("https://localhost:8080")
+                    policy.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -47,8 +49,9 @@ namespace FaultCatalogAPI
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors(CorsPolicy);
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
