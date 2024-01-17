@@ -56,9 +56,9 @@ namespace FaultCatalogAPI.Services
             }
 
             // Updating fault item
-            faultToUpdate.Title = faultToUpdate.Title;
-            faultToUpdate.Description = faultToUpdate.Description;
-            faultToUpdate.ShortDescription = faultToUpdate.ShortDescription;
+            faultToUpdate.Title = fault.Title;
+            faultToUpdate.Description = fault.Description;
+            faultToUpdate.ShortDescription = fault.ShortDescription;
 
             var selectedSuccessCriterionRefIds = fault.SuccessCriterionRefIds;
 
@@ -72,9 +72,11 @@ namespace FaultCatalogAPI.Services
                 }
             }
 
-            faultToUpdate.SuccessCriterionRefIds = selectedSuccessCriterionRefIds;
+            fault.SuccessCriterionRefIds.Clear();
 
             await _context.SaveChangesAsync();
+
+            faultToUpdate.SuccessCriterionRefIds = selectedSuccessCriterionRefIds;
 
             var faultSuccessCriteria = new List<FaultSuccessCriterion>();
 

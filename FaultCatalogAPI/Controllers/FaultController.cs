@@ -35,18 +35,6 @@ namespace FaultCatalogAPI.Controllers
             return Ok(fault);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<List<Fault>>> UpdateFault(Fault fault)
-        {
-            var result = await _faultservice.UpdateFault(fault);
-            if (result == null)
-            {
-                return NotFound("Fault not found.");
-            }
-
-            return Ok(result);
-        }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Fault>>> DeleteFault(long id)
         {

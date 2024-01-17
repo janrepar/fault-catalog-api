@@ -44,23 +44,5 @@ namespace FaultCatalogAPI.Services
 
             return fault;
         }
-
-        public async Task<List<Fault>?> UpdateFault(Fault fault)
-        {
-            var faultToUpdate = await _context.Faults.FindAsync(fault.Id);
-            if (faultToUpdate == null)
-            {
-                return null;
-            }
-
-            faultToUpdate.Title = fault.Title;
-            faultToUpdate.Description = fault.Description;
-            faultToUpdate.ShortDescription = fault.ShortDescription;
-            faultToUpdate.SuccessCriterionRefIds = faultToUpdate.SuccessCriterionRefIds;
-
-            await _context.SaveChangesAsync();
-
-            return await _context.Faults.ToListAsync();
-        }
     }
 }
