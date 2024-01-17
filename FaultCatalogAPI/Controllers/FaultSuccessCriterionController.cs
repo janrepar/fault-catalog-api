@@ -29,7 +29,7 @@ namespace FaultCatalogAPI.Controllers
         [HttpPut]
         public async Task<ActionResult<List<Fault>>> UpdateFaultSuccessCriteria(Fault fault)
         {
-            var result = await _faultSuccessCriterionService.UpdateFaultSuccessCriteria(fault);
+            var result = await _faultSuccessCriterionService.UpdateFault(fault);
             if (result == null)
             {
                 return NotFound("Fault not found or success criteria doesn't exist.");

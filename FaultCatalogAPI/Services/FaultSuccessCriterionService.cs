@@ -47,7 +47,7 @@ namespace FaultCatalogAPI.Services
             return await _context.Faults.ToListAsync();
         }
 
-        public async Task<List<Fault>?> UpdateFaultSuccessCriteria(Fault fault)
+        public async Task<List<Fault>?> UpdateFault(Fault fault)
         {
             var faultToUpdate = await _context.Faults.FindAsync(fault.Id);
             if (faultToUpdate == null)
