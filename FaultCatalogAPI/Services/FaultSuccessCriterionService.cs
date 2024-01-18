@@ -72,11 +72,10 @@ namespace FaultCatalogAPI.Services
                 }
             }
 
-            fault.SuccessCriterionRefIds.Clear();
+            faultToUpdate.SuccessCriterionRefIds.Clear();
+            faultToUpdate.SuccessCriterionRefIds = selectedSuccessCriterionRefIds;
 
             await _context.SaveChangesAsync();
-
-            faultToUpdate.SuccessCriterionRefIds = selectedSuccessCriterionRefIds;
 
             var faultSuccessCriteria = new List<FaultSuccessCriterion>();
 
