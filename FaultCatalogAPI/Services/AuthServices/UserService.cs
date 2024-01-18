@@ -11,7 +11,7 @@ namespace FaultCatalogAPI.Services.AuthServices
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string GetUsername()
+        public string GetUserName()
         {
             var result = string.Empty;
             if (_httpContextAccessor.HttpContext != null)
