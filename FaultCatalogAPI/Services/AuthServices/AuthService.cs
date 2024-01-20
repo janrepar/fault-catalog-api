@@ -43,31 +43,13 @@ namespace FaultCatalogAPI.Services.AuthServices
             }
 
             string token = CreateToken(user);
-
-            var refreshToken = GenerateRefreshToken();
-            SetRefreshToken(refreshToken);
-
             return token;
         }
 
-        private RefreshToken GenerateRefreshToken()
+        public async Task<ActionResult<string>> RefreshToken()
         {
-            var refreshToken = new RefreshToken
-            {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddDays(7),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
-        }
-
-        private void SetRefreshToken(RefreshToken refreshToken)
-        {
-            user.RefreshToken = refreshToken.Token;
-            user.TokenCreated = refreshToken.Created;
-            user.TokenExpires = refreshToken.Expires;
-
+            string token = CreateToken(user);
+            return token;
         }
 
         private string CreateToken(User user)

@@ -8,10 +8,6 @@ namespace FaultCatalogAPI.Services.AuthServices
         Task<ActionResult<User>> Register(UserDto request);
         Task<ActionResult<string>> Login(UserDto request);
         Task<ActionResult<string>> RefreshToken();
-        RefreshToken GenerateRefreshToken();
-        void SetRefreshToken(RefreshToken refreshToken);
-        string CreateToken(User user);
-        void CreatePasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
-        bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
+        string GenerateRefreshToken();
     }
 }
