@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using FaultCatalogAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaultCatalogAPI.Services.AuthServices
 {
@@ -16,11 +18,13 @@ namespace FaultCatalogAPI.Services.AuthServices
         public static User user = new User();
         private readonly IConfiguration _configuration;
         public readonly IUserService _userService;
+        public readonly DataContext _context;
 
-        public AuthService(IConfiguration configuration, IUserService userService)
+        public AuthService(IConfiguration configuration, IUserService userService, DataContext context)
         {
             _configuration = configuration;
             _userService = userService;
+            _context = context;
         }
 
         public async Task<ActionResult<User>> Register(UserDto request)
@@ -31,11 +35,14 @@ namespace FaultCatalogAPI.Services.AuthServices
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            await _context.SaveChangesAsync();
+
             return user;
         }
 
         public async Task<ActionResult<string>> Login(UserDto request)
         {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
             // Returns null if username or password incorrect
             if (user.UserName != request.UserName || !VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {

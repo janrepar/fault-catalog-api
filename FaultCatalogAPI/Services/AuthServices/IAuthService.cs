@@ -8,6 +8,5 @@ namespace FaultCatalogAPI.Services.AuthServices
         Task<ActionResult<User>> Register(UserDto request);
         Task<ActionResult<string>> Login(UserDto request);
         Task<ActionResult<string>> RefreshToken();
-        string GenerateRefreshToken();
     }
 }
