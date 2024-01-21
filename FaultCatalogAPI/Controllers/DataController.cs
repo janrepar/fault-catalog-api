@@ -1,10 +1,12 @@
 ﻿using FaultCatalogAPI.Data;
 using FaultCatalogAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace FaultCatalogAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DataController : ControllerBase

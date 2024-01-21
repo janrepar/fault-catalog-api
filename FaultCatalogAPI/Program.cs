@@ -7,6 +7,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace FaultCatalogAPI
 {
@@ -25,13 +26,12 @@ namespace FaultCatalogAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Authorization header using the Bearer scheme (\"bearer {token}\")",
-                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    In = ParameterLocation.Header,
                     Name = "Authorization",
-                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Type = SecuritySchemeType.ApiKey
                 });
 
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
@@ -41,7 +41,6 @@ namespace FaultCatalogAPI
             builder.Services.AddScoped<IFaultService, FaultService>();
             builder.Services.AddScoped<ISuccessCriterionService, SuccessCriterionService>();
             builder.Services.AddScoped<IFaultSuccessCriterionService, FaultSuccessCriterionService>();
-            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddHttpContextAccessor();
             // Register db context.
@@ -84,6 +83,8 @@ namespace FaultCatalogAPI
             app.UseHttpsRedirection();
 
             app.UseCors(CorsPolicy);
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

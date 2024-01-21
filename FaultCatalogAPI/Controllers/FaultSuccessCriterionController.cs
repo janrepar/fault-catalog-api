@@ -1,9 +1,11 @@
 ﻿using FaultCatalogAPI.Models;
 using FaultCatalogAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaultCatalogAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FaultSuccessCriterionController : ControllerBase

@@ -10,31 +10,43 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using FaultCatalogAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Schema;
 
 namespace FaultCatalogAPI.Services.AuthServices
 {
     public class AuthService : IAuthService
     {
-        public static User user = new User();
         private readonly IConfiguration _configuration;
-        public readonly IUserService _userService;
         public readonly DataContext _context;
 
-        public AuthService(IConfiguration configuration, IUserService userService, DataContext context)
+        public AuthService(IConfiguration configuration, DataContext context)
         {
             _configuration = configuration;
-            _userService = userService;
             _context = context;
         }
 
         public async Task<ActionResult<User>> Register(UserDto request)
         {
+            var user = new User();
+            var userInDB = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+
+            if (userInDB != null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
+            {
+                return null;
+            }
+
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            user.UserName = request.UserName;
+            user.Username = request.Username;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return user;
@@ -42,9 +54,16 @@ namespace FaultCatalogAPI.Services.AuthServices
 
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+
             // Returns null if username or password incorrect
-            if (user.UserName != request.UserName || !VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            if (user == null || !VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return null;
+            }
+
+            // Checks if request is null, empty or whitespace
+            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
             {
                 return null;
             }
@@ -55,6 +74,7 @@ namespace FaultCatalogAPI.Services.AuthServices
 
         public async Task<ActionResult<string>> RefreshToken()
         {
+            var user = new User();
             string token = CreateToken(user);
             return token;
         }
@@ -63,8 +83,7 @@ namespace FaultCatalogAPI.Services.AuthServices
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Name, user.Username),
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(

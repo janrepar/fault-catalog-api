@@ -1,39 +1,32 @@
 ﻿using FaultCatalogAPI.Models;
-using FaultCatalogAPI.Services;
 using FaultCatalogAPI.Services.AuthServices;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 
 namespace FaultCatalogAPI.Controllers
 {
-    [Route("auth/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class UserAuthController : ControllerBase
+    public class AuthController : ControllerBase
     {
-        public static User user = new User();
         private readonly IAuthService _authService;
-        private readonly IUserService _userService;
+
         
-        public UserAuthController(IAuthService authService, IUserService userService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _userService = userService;
-        }
-
-        [HttpGet, Authorize]
-        public ActionResult<string> GetUserName()
-        {
-            var userName = _userService.GetUserName();
-            return Ok(userName);
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
             var user = await _authService.Register(request);
+
+            if (user == null)
+            {
+                return BadRequest("User already exists or password not provided.");
+            }
+
             return Ok(user);
         }
 
@@ -49,13 +42,16 @@ namespace FaultCatalogAPI.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken);
 
-            return Ok(token);
+            Console.WriteLine(token);
+
+            return Ok(token.Value);
         }
 
         [HttpPost("refresh-token")]
         public async Task<ActionResult<string>> RefreshToken()
         {
             var refreshToken = Request.Cookies["refreshToken"];
+            var user = new User();
             
             if (!user.RefreshToken.Equals(refreshToken))
             {
@@ -66,11 +62,11 @@ namespace FaultCatalogAPI.Controllers
                 return Unauthorized("Token expired.");
             }
 
-            var token = _authService.RefreshToken();
+            var token = await _authService.RefreshToken();
             var newRefreshToken = GenerateRefreshToken();
             SetRefreshToken(newRefreshToken);
 
-            return Ok(token);
+            return Ok(token.Value);
         }
 
         // This method creates a new refresh token
@@ -89,6 +85,7 @@ namespace FaultCatalogAPI.Controllers
         // This method sets refresh token in the response cookies and updates user properties for future validation
         private void SetRefreshToken(RefreshToken newRefreshToken)
         {
+            var user = new User();
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
