@@ -42,7 +42,14 @@ namespace FaultCatalogAPI.Controllers
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken);
 
-            Console.WriteLine(token);
+            /*
+            Response.Cookies.Append("authToken", token.Value, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // Set to true if using HTTPS commented out for development
+                SameSite = SameSiteMode.None // Adjust as needed based on your requirements
+            });
+            */
 
             return Ok(token.Value);
         }
@@ -75,7 +82,7 @@ namespace FaultCatalogAPI.Controllers
             var refreshToken = new RefreshToken
             {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddDays(1),
                 Created = DateTime.Now
             };
 
@@ -89,6 +96,8 @@ namespace FaultCatalogAPI.Controllers
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
+                Secure = true, // Set to true if using HTTPS commented out for development
+                SameSite = SameSiteMode.None, // Adjust as needed based on your requirements
                 Expires = newRefreshToken.Expires
             };
             Response.Cookies.Append("refreshToken",newRefreshToken.Token, cookieOptions);
